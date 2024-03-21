@@ -1,6 +1,13 @@
+import { Reducer } from "react";
 import { ITask } from "../interfaces";
 
-export function tasksReducer(tasks: ITask[], action: { type: any; taskId: any; taskName: any; }) { 
+interface Action {
+  type: string;
+  taskId?: any;
+  taskName?: any;
+}
+
+export const tasksReducer: Reducer<ITask[], Action> = (tasks, action) => { 
   switch (action.type) {
     case 'add_task':
       return [
@@ -27,6 +34,6 @@ export function tasksReducer(tasks: ITask[], action: { type: any; taskId: any; t
       return [...tasks.filter(task => task.id !== action.taskId)];
   
     default:
-      break;
+      return tasks;
   }
 }
