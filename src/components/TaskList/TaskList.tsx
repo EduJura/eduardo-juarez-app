@@ -28,12 +28,14 @@ function TaskList(): JSX.Element {
                 <form>
                   <input
                     className='form-control'
+                    data-testid='task-input'
                     type='text'
                     autoFocus
                     ref={taskInput}
                   />
                   <button
                     className='btn btn-success btn-block mt-3'
+                    data-testid='save-task-button'
                     onClick={handleSaveClick}>
                     Save
                   </button>
