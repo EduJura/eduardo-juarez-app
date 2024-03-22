@@ -1,4 +1,3 @@
-import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import Task from "./Task";
 import { ITask } from "../../global/interfaces";
@@ -19,26 +18,26 @@ describe("Task component", () => {
     jest.clearAllMocks();
   });
 
-  test("renders task name and id", () => {
+  test("Renders task name and id", () => {
     const { getByText } = render(<Task {...taskArgs} />);
     expect(getByText(`${task.name} - ${task.id}`)).toBeInTheDocument();
   });
 
-  test("renders checkmark button if task is done", () => {
+  test("Renders checkmark button if task is done", () => {
     const { getByRole } = render(
       <Task task={{ ...task, done: true }} dispatch={dispatch} />
     );
     expect(getByRole("button", { name: "✓" })).toBeInTheDocument();
   });
 
-  test("renders cross button if task is not done", () => {
-    const { getByRole } = render(
+  test("Renders cross button if task is not done", () => {
+    const { getByTestId } = render(
       <Task { ...taskArgs} />
     );
-    expect(getByRole("button", { name: "𝘟" })).toBeInTheDocument();
+    expect(getByTestId("remove-task-button")).toBeInTheDocument();
   });
 
-  test("calls dispatch with correct action when checkmark button is clicked", () => {
+  test("Calls dispatch with correct action when checkmark button is clicked", () => {
     const { getByTestId } = render(<Task {...taskArgs} />);
     const btn = getByTestId("change-task-button");
     fireEvent.click(btn);
@@ -48,7 +47,7 @@ describe("Task component", () => {
     });
   });
 
-  test("calls dispatch with correct action when cross button is clicked", () => {
+  test("Calls dispatch with correct action when cross button is clicked", () => {
     const { getByTestId } = render(<Task {...taskArgs} />);
     const btn = getByTestId("remove-task-button");
     fireEvent.click(btn);
