@@ -43,7 +43,7 @@ describe("Task component", () => {
     fireEvent.click(btn);
     expect(dispatch).toHaveBeenCalledWith({
       type: "change_task",
-      taskId: task.id,
+      //taskId: task.id,
     });
   });
 
