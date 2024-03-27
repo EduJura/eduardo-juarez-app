@@ -31,11 +31,11 @@ jobs:
         cache: 'yarn'
 
     - name: Install Dependencies
-      run: yarn install
+      run: | 
+        yarn  pre-ci
+        yarn ci
 
     - name: Run Jest Tests
       run: |
-        yarn  pre-ci
-        yarn ci
         yarn build --if-present
         yarn test
