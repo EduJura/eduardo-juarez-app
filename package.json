@@ -26,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pre-ci": "rm -rf node_modules",
+    "ci": "yarn install --immutable --immutable-cache --check-cache"
   },
   "eslintConfig": {
     "extends": [

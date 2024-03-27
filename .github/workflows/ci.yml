@@ -35,6 +35,7 @@ jobs:
 
     - name: Run Jest Tests
       run: |
+        yarn  pre-ci
         yarn ci
         yarn build --if-present
         yarn test
