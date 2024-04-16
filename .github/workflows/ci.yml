@@ -39,3 +39,9 @@ jobs:
       run: |
         yarn build --if-present
         yarn test
+    
+    - name: Run e2e Tests
+      run: |
+        yarn build --if-present
+        yarn start
+        yarn test:e2e
