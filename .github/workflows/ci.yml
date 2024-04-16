@@ -35,13 +35,22 @@ jobs:
         yarn  pre-ci
         yarn ci
 
-    - name: Run Jest Tests
-      run: |
-        yarn build --if-present
-        yarn test
+    - name: Build App
+      run: yarn build --if-present  
     
-    - name: Run e2e Tests
+    - name: Run Jest Tests
+      run: yarn test
+    
+    - name: Install ChromeDriver
       run: |
-        yarn build --if-present
-        yarn start
+        wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O LATEST_RELEASE
+        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
+        CHROME_DRIVER_VERSION=$(cat LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip -d /usr/local/bin
+        chmod +x /usr/local/bin/chromedriver
+        if: runner.os == 'Linux'
+    
+    - name: Run Selenium e2e Tests
+      run: |
         yarn test:e2e
