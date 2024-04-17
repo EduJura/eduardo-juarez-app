@@ -54,8 +54,10 @@ jobs:
         chmod +x /usr/local/bin/chromedriver
 
         # Validate versions
+        echo "Chrome versions"
         google-chrome --version
         chrome --version
+        echo "Chromedriver versions"
         chromedriver --version
 
       if: runner.os == 'Linux'
