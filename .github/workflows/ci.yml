@@ -37,15 +37,23 @@ jobs:
 
     # - name: Build App
     #  run: yarn build --if-present  
-    - name: Install ChromeDriver
+    
+    # TODO: Add step to install ChromeDriver for ubuntu-latest version
+    - name: Install Chrome and ChromeDriver
       run: |
-        curl -sL https://chromedriver.storage.googleapis.com/LATEST_RELEASE | awk '{print $1}' | wget -qi - -O chromedriver_linux64.zip
+        # Install Chrome
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+    
+        # Install ChromeDriver
+        wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O LATEST_RELEASE
+        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
+        CHROME_DRIVER_VERSION=$(cat LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip -d /usr/local/bin
-        ls -la /usr/local/bin/
         chmod +x /usr/local/bin/chromedriver
-
-
-        if: runner.os == 'Linux'
+        
+      if: runner.os == 'Linux'
 
     - name: Run Jest Tests (Unit Tests)
       run: yarn test
