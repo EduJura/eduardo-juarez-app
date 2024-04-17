@@ -44,7 +44,7 @@ jobs:
         # Install Chrome
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb
-    
+        
         # Install ChromeDriver
         wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O LATEST_RELEASE
         CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
@@ -52,7 +52,12 @@ jobs:
         wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip -d /usr/local/bin
         chmod +x /usr/local/bin/chromedriver
-        
+
+        # Validate versions
+        google-chrome --version
+        chrome --version
+        chromedriver --version
+
       if: runner.os == 'Linux'
 
     - name: Run Jest Tests (Unit Tests)
