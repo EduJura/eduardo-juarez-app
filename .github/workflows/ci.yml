@@ -37,11 +37,11 @@ jobs:
 
     # - name: Build App
     #  run: yarn build --if-present  
-    
     - name: Install ChromeDriver
       run: |
         curl -sL https://chromedriver.storage.googleapis.com/LATEST_RELEASE | awk '{print $1}' | wget -qi - -O chromedriver_linux64.zip
         unzip chromedriver_linux64.zip -d /usr/local/bin
+        ls -la /usr/local/bin/chromedriver_linux64
         chmod +x /usr/local/bin/chromedriver
         if: runner.os == 'Linux'
 
