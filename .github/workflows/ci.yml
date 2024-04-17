@@ -55,8 +55,7 @@ jobs:
 
         # Validate versions
         echo "Chrome versions"
-        google-chrome --version
-        chrome --version
+        google-chrome --version        
         echo "Chromedriver versions"
         chromedriver --version
 
