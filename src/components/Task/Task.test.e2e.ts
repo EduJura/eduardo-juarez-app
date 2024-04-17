@@ -1,4 +1,4 @@
-import { Builder, By, until } from "selenium-webdriver";
+import { Builder, By, until, Browser } from "selenium-webdriver";
 
 describe("Task Component E2E Test", () => {
   let driver;
@@ -6,7 +6,7 @@ describe("Task Component E2E Test", () => {
   beforeEach(async () => {
     // TODO: Handle Firefox and Safari drivers to in the same test case
     //driver = await new Builder().forBrowser("firefox").build(); // Replace 'firefox' with desired browser
-    driver = await new Builder().forBrowser("chrome").build(); // Replace 'chrome' with desired browser
+    driver = await new Builder().forBrowser(Browser.CHROME).build(); // Replace 'chrome' with desired browser
     await driver.get("http://localhost:3000/"); // Replace with your development server URL
   });
 
