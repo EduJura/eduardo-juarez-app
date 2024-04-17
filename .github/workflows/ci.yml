@@ -55,7 +55,11 @@ jobs:
 
         # Validate versions
         echo "Chrome versions"
-        google-chrome --version        
+        google-chrome --version
+        echo "Listing chrome files"
+        ls -l /usr/bin/
+        echo " *********** "
+        ls -l /usr/bin/google-chrome
         echo "Chromedriver versions"
         chromedriver --version
 
