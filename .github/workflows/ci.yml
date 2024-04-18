@@ -52,8 +52,8 @@ jobs:
       
     - name: test
       run: |
-        echo ${{CHROME_VERSION}}
-        echo ${{CHROME_DRIVER_VERSION}}
+        echo "CHROME_VERSION: $CHROME_VERSION"
+        echo "CHROME_DRIVER_VERSION $CHROME_DRIVER_VERSION"
         
         wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip -d /usr/local/bin
