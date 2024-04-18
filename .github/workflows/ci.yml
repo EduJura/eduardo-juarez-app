@@ -1,4 +1,4 @@
-name: My Components Testing
+name: Continous Integration
 
 on: 
   push:
@@ -7,7 +7,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  test:
+  Unit-and-E2E-Testing:
+    name: Unit and E2E Testing
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,21 +35,10 @@ jobs:
       run: | 
         yarn  pre-ci
         yarn ci
-
-    # - name: Build App
-    #  run: yarn build --if-present  
-    
-    # TODO: Add step to install ChromeDriver for ubuntu-latest version
-    - name: Install Chrome and ChromeDriver
-      run: |
-        # Install Chrome
-        # wget https://dl.google.com/linux/direct/google-chrome-123.0.6312.122_amd64.deb
-        # sudo dpkg -i google-chrome-stable_current_amd64.deb
         
+    - name: Install Chrome and ChromeDriver
+      run: |        
         # Install ChromeDriver
-        # wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O LATEST_RELEASE
-        # wget https://storage.googleapis.com/chrome-for-testing-public/LATEST_RELEASE -O LATEST_RELEASE
-        # CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
         CHROME_VERSION=$(google-chrome --version)
         CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
         echo "CHROME_VERSION: $CHROME_VERSION"
@@ -75,6 +65,4 @@ jobs:
       run: yarn test
 
     - name: Run Selenium e2e Tests
-      run: | 
-        yarn start
-        yarn test:e2e
+      run: yarn test:e2e
