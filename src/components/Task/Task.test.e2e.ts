@@ -8,13 +8,13 @@ describe("Task Component E2E Test", () => {
     // TODO: Handle Firefox and Safari drivers to in the same test case
     //driver = await new Builder().forBrowser("firefox").build(); // Replace 'firefox' with desired browser
     const options = new Options();
+    console.log("Chrome: ", options);
     driver = await new Builder()
       .forBrowser(Browser.CHROME)
       .setChromeOptions(options.addArguments("--headless=new"))
       .build();
     await driver.get("http://localhost:3000/");
-    console.log("Chrome: ", options);
-
+    
     console.log("CURRENT DRIVER:  ", driver);
   });
 
