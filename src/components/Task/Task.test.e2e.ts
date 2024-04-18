@@ -10,8 +10,6 @@ describe("Task Component E2E Test", () => {
     await driver.get("http://localhost:3000/"); // Replace with your development server URL
 
     console.log("CURRENT DRIVER: ", driver);
-    console.log("CURRENT DRIVER: ", driver.browser);
-    console.log("CURRENT DRIVER: ", driver.browser.version);
   });
 
   afterEach(async () => {
