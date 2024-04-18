@@ -52,12 +52,12 @@ jobs:
       
     - name: test
       run: |
-        echo $CHROME_VERSION
-        echo $CHROME_VERSION
+        echo ${{CHROME_VERSION}}
+        echo ${{CHROME_DRIVER_VERSION}}
         
-        #wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-        #unzip chromedriver_linux64.zip -d /usr/local/bin
-        #chmod +x /usr/local/bin/chromedriver
+        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip -d /usr/local/bin
+        chmod +x /usr/local/bin/chromedriver
 
         # Validate versions
         echo "Chrome versions"
