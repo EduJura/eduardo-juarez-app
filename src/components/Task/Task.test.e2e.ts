@@ -1,4 +1,5 @@
 import { Builder, By, until, Browser } from "selenium-webdriver";
+import { Options } from "selenium-webdriver/chrome";
 
 describe("Task Component E2E Test", () => {
   let driver;
@@ -6,10 +7,15 @@ describe("Task Component E2E Test", () => {
   beforeEach(async () => {
     // TODO: Handle Firefox and Safari drivers to in the same test case
     //driver = await new Builder().forBrowser("firefox").build(); // Replace 'firefox' with desired browser
-    driver = await new Builder().forBrowser(Browser.CHROME).build(); // Replace 'chrome' with desired browser
-    await driver.get("http://localhost:3000/"); // Replace with your development server URL
+    const options = new Options();
+    driver = await new Builder()
+      .forBrowser(Browser.CHROME)
+      .setChromeOptions(options.addArguments("--headless=new"))
+      .build();
+    await driver.get("http://localhost:3000/");
+    console.log("Chrome: ", options);
 
-    console.log("CURRENT DRIVER: ", driver);
+    console.log("CURRENT DRIVER:  ", driver);
   });
 
   afterEach(async () => {
