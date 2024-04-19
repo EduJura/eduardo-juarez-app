@@ -51,20 +51,25 @@ jobs:
     steps:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
+
+      - run: |
+          mkdir build
         
-      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.
+      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.        
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts
+          path: build
+          name: build-artifacts          
 
       - run: |
           pwd
-          ls -la          
+          ls -la
+          ls -la build
           
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: 'build-artifacts'
+          folder: build
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
