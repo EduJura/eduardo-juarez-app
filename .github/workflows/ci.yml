@@ -57,13 +57,14 @@ jobs:
         with:
           name: build-folder
 
-      - shell: bash
-        run: |
+      - run: |
           pwd
           ls -la          
           
       - name: Deploy Built Files 🚀
-        uses: JamesIves/github-pages-deploy-action@v4        
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .  # Deploy files from the root directory
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
