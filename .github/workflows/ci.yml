@@ -46,9 +46,12 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
-    #concurrency: ci-${{ github.ref }}
+    concurrency: ci-${{ github.ref }}
     needs: build  # This job depends on the successful completion of the 'build' job
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
     steps:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
@@ -60,17 +63,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: build
-          name: build-artifacts          
-
-      - run: |
-          pwd
-          ls -la
-          ls -la build
+          name: build-artifacts                
           
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
+
+      - run: |
+          pwd
+          ls -la
+          ls -la build
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
