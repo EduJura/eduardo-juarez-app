@@ -40,7 +40,7 @@ jobs:
     needs: build  # This job depends on the successful completion of the 'build' job
     steps:
       - name: Deploy Built Files 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-action@v4.1.1
         with:
           folder: build
 
