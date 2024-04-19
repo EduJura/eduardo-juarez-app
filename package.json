@@ -35,7 +35,9 @@
     "pre-ci": "rm -rf node_modules",
     "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test",
-    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts"
+    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts",
+    "local:test:e2e": "REACT_APP_SELENIUM_TEST_URL=http:localhost:3000 yarn test:e2e",
+    "prod:test:e2e": "yarn test:e2e"
   },
   "jest": {
     "moduleNameMapper": {
