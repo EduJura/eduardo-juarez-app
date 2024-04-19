@@ -64,7 +64,7 @@ jobs:
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build-artifacts
+          folder: 'build-artifacts'
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
