@@ -11,7 +11,7 @@ describe("Task Component E2E Test", () => {
     console.log("Chrome: ", options);
     driver = await new Builder()
       .forBrowser(Browser.CHROME)
-      .setChromeOptions(options.addArguments("--headless=new"))
+      .setChromeOptions(options.addArguments("--headless"))
       .build();
     await driver.get("http://localhost:3000/");
     
