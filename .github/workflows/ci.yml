@@ -14,45 +14,45 @@ jobs:
       matrix:
         node-version: [16.x] 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository 🛎️
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js ${{matrix.node-version}}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{matrix.node-version}}
-        cache: 'yarn'
+      - name: Set up Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'yarn'
 
-    - name: Install Dependencies
-      run: | 
-        yarn  pre-ci
-        yarn ci    
+      - name: Install Dependencies
+        run: | 
+          yarn  pre-ci
+          yarn ci    
 
-    - name: Build React App
-      run: yarn build
+      - name: Build React App
+        run: yarn build
 
-    - name: Upload build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-artifacts
-        path: build
+      - name: Uploading Built Artifacts 🔺 # The project is then uploaded as an artifact named 'site'.
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: build
 
-    - shell: bash
-      run: |
-        pwd
-        ls -la
-        echo "Listing Built Artifacts"
-        ls -la build
+      - run: |
+          pwd
+          ls -la
+          echo "Listing Built Artifacts"
+          ls -la build
 
   deploy:
     name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x] 
+    concurrency: ci-${{ github.ref }}
     needs: build  # This job depends on the successful completion of the 'build' job
+    runs-on: ubuntu-latest    
     steps:
-      - name: Download Build artifacts
+      - name: Checkout Repository 🛎️
+        uses: actions/checkout@v4
+        
+      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
@@ -69,11 +69,11 @@ jobs:
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
     name: Run Unit and E2E Tests
+    needs: build  # This job depends on the successful completion of the 'build' job
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x] 
-    needs: build  # This job depends on the successful completion of the 'build' job
+        node-version: [16.x]     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
