@@ -5,7 +5,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+permissions:
+  contents: write
 jobs:
   build:
     name: Build
@@ -45,7 +46,7 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
-    concurrency: ci-${{ github.ref }}
+    #concurrency: ci-${{ github.ref }}
     needs: build  # This job depends on the successful completion of the 'build' job
     runs-on: ubuntu-latest    
     steps:
