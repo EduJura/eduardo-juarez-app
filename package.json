@@ -28,11 +28,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts",
     "eject": "react-scripts eject",
     "pre-ci": "rm -rf node_modules",
-    "ci": "yarn install --immutable --immutable-cache --check-cache"
+    "ci": "yarn install --immutable --immutable-cache --check-cache",
   },
   "jest": {
     "moduleNameMapper": {
