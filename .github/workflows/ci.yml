@@ -7,20 +7,12 @@ on:
     branches: [ "master" ]
 
 jobs:
-  Unit-and-E2E-Testing:
-    name: Unit and E2E Testing
+  Build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        # Or run `node --version` in the GitHub Actions runner to see the current Node.js version
-        # Or run `nvm --version` in the GitHub Actions runner to see the current Node.js version
-        # Or run `nvm ls` in the GitHub Actions runner to see the list of Node.js versions
-        # Or run `nvm install 16.x` in the GitHub Actions runner to install the Node.js version
-        # Or run `nvm use 16.x` in the GitHub Actions runner to set the Node.js version
-        # Or run `nvm alias default 16.x` in the GitHub Actions runner to set the Node.js version as the default version
-        # Or run `nvm install 16.x && nvm use 16.x` in the GitHub Actions runner to install and set the Node.js version  
+        node-version: [16.x] 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -64,7 +56,26 @@ jobs:
       run: |
         yarn build
         yarn start
-    
+  Unit-and-E2E-Testing:
+    name: Unit and E2E Testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{matrix.node-version}}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.node-version}}
+        cache: 'yarn'
+
+    - name: Install Dependencies
+      run: | 
+        yarn  pre-ci
+        yarn ci
     - name: Run Jest Tests (Unit Tests)
       run: yarn test
 
