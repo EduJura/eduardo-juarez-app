@@ -1,67 +1,129 @@
-name: My Components Testing
+name: Continous Integration
 
-on: 
+on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+permissions:
+  contents: write
 jobs:
-  test:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        # Or run `node --version` in the GitHub Actions runner to see the current Node.js version
-        # Or run `nvm --version` in the GitHub Actions runner to see the current Node.js version
-        # Or run `nvm ls` in the GitHub Actions runner to see the list of Node.js versions
-        # Or run `nvm install 16.x` in the GitHub Actions runner to install the Node.js version
-        # Or run `nvm use 16.x` in the GitHub Actions runner to set the Node.js version
-        # Or run `nvm alias default 16.x` in the GitHub Actions runner to set the Node.js version as the default version
-        # Or run `nvm install 16.x && nvm use 16.x` in the GitHub Actions runner to install and set the Node.js version  
+        node-version: [16.x] 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository 🛎️
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js ${{matrix.node-version}}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{matrix.node-version}}
-        cache: 'yarn'
+      - name: Set up Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'yarn'
 
-    - name: Install Dependencies
-      run: | 
-        yarn  pre-ci
-        yarn ci
+      - name: Install Dependencies
+        run: | 
+          yarn  pre-ci
+          yarn ci    
 
-    # - name: Build App
-    #  run: yarn build --if-present  
-    
-    # TODO: Add step to install ChromeDriver for ubuntu-latest version
-    - name: Install Chrome and ChromeDriver
-      run: |
-        # Install Chrome
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
+      - name: Build React App
+        run: yarn build
+
+      - name: Uploading Built Artifacts 🔺 # The project is then uploaded as an artifact named 'site'.
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: build
+
+      - run: |
+          pwd
+          ls -la
+          echo "Listing Built Artifacts"
+          ls -la build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    concurrency: ci-${{ github.ref }}
+    needs: build  # This job depends on the successful completion of the 'build' job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
+    steps:
+      - name: Checkout Repository 🛎️
+        uses: actions/checkout@v4
+
+      - run: |
+          mkdir build
         
-        # Install ChromeDriver
-        wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE -O LATEST_RELEASE
-        CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1)
-        CHROME_DRIVER_VERSION=$(cat LATEST_RELEASE)
-        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip -d /usr/local/bin
-        chmod +x /usr/local/bin/chromedriver
+      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.        
+        uses: actions/download-artifact@v4
+        with:
+          path: build
+          name: build-artifacts                
+          
+      - name: Deploy Built Files 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          clean: true
+          folder: build
 
-        # Validate versions
-        google-chrome --version
-        chrome --version
-        chromedriver --version
+      - run: |
+          pwd
+          ls -la
+          ls -la build
 
-      if: runner.os == 'Linux'
+  # Assuming you don't need a separate build step before testing (modify if needed)
+  test:
+    name: Run Unit and E2E Tests
+    needs: build  # This job depends on the successful completion of the 'build' job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]     
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Run Jest Tests (Unit Tests)
-      run: yarn test
+      - name: Set up Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'yarn'
+      
+      - name: Install Dependencies
+        run: | 
+          yarn  pre-ci
+          yarn ci
 
-    - name: Run Selenium e2e Tests
-      run: yarn test:e2e
+      - name: Install Chrome and ChromeDriver
+        run: |        
+          # Install ChromeDriver
+          CHROME_VERSION=$(google-chrome --version)
+          CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
+          # echo "CHROME_VERSION: $CHROME_VERSION"
+          # echo "CHROME_DRIVER_VERSION $CHROME_DRIVER_VERSION"
+          
+          wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip -d /usr/local/bin
+          chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
+
+          # Validate versions
+          echo "Chrome versions"
+          google-chrome --version
+          echo "Listing chrome files"
+          ls -l /usr/bin/ | grep "google-chrome"
+          echo " *********** "
+          ls -l /usr/bin/google-chrome
+          echo "Chromedriver versions"
+          chromedriver --version
+        if: runner.os == 'Linux'
+
+      - name: Run Jest Tests (Unit Tests)
+        run: yarn test
+
+      - name: Run Selenium e2E Tests (if using Selenium)
+        run: yarn test:e2e
