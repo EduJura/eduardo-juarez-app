@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
 jobs:
+  # Build application aritfacts to be deployed
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
           yarn  pre-ci
           yarn ci    
 
-      - name: Build React App
+      - name: Build React App 🔧 # Create production build
         run: yarn build
 
       - name: Uploading Built Artifacts 🔺 # The project is then uploaded as an artifact named 'site'.
@@ -43,11 +44,37 @@ jobs:
           ls -la
           echo "Listing Built Artifacts"
           ls -la build
+  # Perform Unit Testing        
+  unit-testing:
+    name: Unit Testing
+    concurrency: ci-${{ github.ref }}
+    needs: build  # This job depends on the successful completion of the 'build' job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
+      - name: Set up Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'yarn'
+      
+      - name: Install Dependencies
+        run: | 
+          yarn  pre-ci
+          yarn ci
+
+      - name: Run Jest Tests (Unit Tests)
+        run: yarn test
+  # Deploy application artifacts to GitHub Pages      
   deploy:
     name: Deploy to GitHub Pages
     concurrency: ci-${{ github.ref }}
-    needs: build  # This job depends on the successful completion of the 'build' job
+    needs: ["build", "unit-testing"]  # This job depends on the successful completion of the 'build' and 'unit-testing' jobs
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -75,11 +102,10 @@ jobs:
           pwd
           ls -la
           ls -la build
-
-  # Assuming you don't need a separate build step before testing (modify if needed)
-  test:
-    name: Run Unit and E2E Tests
-    needs: build  # This job depends on the successful completion of the 'build' job
+  # Perform E2E Testing
+  e2e-test:
+    name: E2E Tests
+    needs: ["build", "deploy"]  # This job depends on the successful completion of the 'build' and 'deploy' jobs
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -120,10 +146,7 @@ jobs:
           ls -l /usr/bin/google-chrome
           echo "Chromedriver versions"
           chromedriver --version
-        if: runner.os == 'Linux'
-
-      - name: Run Jest Tests (Unit Tests)
-        run: yarn test
+        if: runner.os == 'Linux'      
 
       - name: Run Selenium e2E Tests (if using Selenium)
-        run: yarn test:e2e
+        run: yarn prod:test:e2e
