@@ -60,7 +60,11 @@ jobs:
         chromedriver --version
 
       if: runner.os == 'Linux'
-
+    - name: Start Sever
+      run: |
+        yarn build
+        yarn start
+    
     - name: Run Jest Tests (Unit Tests)
       run: yarn test
 
