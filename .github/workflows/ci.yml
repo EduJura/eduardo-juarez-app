@@ -1,14 +1,14 @@
 name: Continous Integration
 
-on: 
+on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
 jobs:
-  Unit-and-E2E-Testing:
-    name: Unit and E2E Testing
+  build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,38 +26,72 @@ jobs:
     - name: Install Dependencies
       run: | 
         yarn  pre-ci
-        yarn ci
-        
-    - name: Install Chrome and ChromeDriver
-      run: |        
-        # Install ChromeDriver
-        CHROME_VERSION=$(google-chrome --version)
-        CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
-        echo "CHROME_VERSION: $CHROME_VERSION"
-        echo "CHROME_DRIVER_VERSION $CHROME_DRIVER_VERSION"
-        
-        # wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-        wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
-        unzip chromedriver-linux64.zip -d /usr/local/bin
-        chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
+        yarn ci    
 
-        # Validate versions
-        echo "Chrome versions"
-        google-chrome --version
-        echo "Listing chrome files"
-        ls -l /usr/bin/ | grep "google-chrome"
-        echo " *********** "
-        ls -l /usr/bin/google-chrome
-        echo "Chromedriver versions"
-        chromedriver --version
-      if: runner.os == 'Linux'
+    - name: Build React App
+      run: yarn build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
+    needs: build  # This job depends on the successful completion of the 'build' job
+    steps:
+      - name: Deploy Built Files 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+
+  # Assuming you don't need a separate build step before testing (modify if needed)
+  test:
+    name: Run Unit and E2E Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x] 
+    needs: build  # This job depends on the successful completion of the 'build' job
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'yarn'
       
-    - name: Start Sever
-      run: |
-        yarn build
-        
-    - name: Run Jest Tests (Unit Tests)
-      run: yarn test
+      - name: Install Dependencies
+        run: | 
+          yarn  pre-ci
+          yarn ci
 
-    - name: Run Selenium e2e Tests
-      run: yarn test:e2e
+      - name: Install Chrome and ChromeDriver
+        run: |        
+          # Install ChromeDriver
+          CHROME_VERSION=$(google-chrome --version)
+          CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
+          # echo "CHROME_VERSION: $CHROME_VERSION"
+          # echo "CHROME_DRIVER_VERSION $CHROME_DRIVER_VERSION"
+          
+          wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip -d /usr/local/bin
+          chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
+
+          # Validate versions
+          echo "Chrome versions"
+          google-chrome --version
+          echo "Listing chrome files"
+          ls -l /usr/bin/ | grep "google-chrome"
+          echo " *********** "
+          ls -l /usr/bin/google-chrome
+          echo "Chromedriver versions"
+          chromedriver --version
+        if: runner.os == 'Linux'
+
+      - name: Run Jest Tests (Unit Tests)
+        run: yarn test
+
+      - name: Run Selenium e2E Tests (if using Selenium)
+        run: yarn test:e2e
