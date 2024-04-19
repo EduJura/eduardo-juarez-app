@@ -7,8 +7,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  Build:
-    name: Build
+  Unit-and-E2E-Testing:
+    name: Unit and E2E Testing
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -50,32 +50,12 @@ jobs:
         ls -l /usr/bin/google-chrome
         echo "Chromedriver versions"
         chromedriver --version
-
       if: runner.os == 'Linux'
+      
     - name: Start Sever
       run: |
         yarn build
-        yarn start
-  Unit-and-E2E-Testing:
-    name: Unit and E2E Testing
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x] 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js ${{matrix.node-version}}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{matrix.node-version}}
-        cache: 'yarn'
-
-    - name: Install Dependencies
-      run: | 
-        yarn  pre-ci
-        yarn ci
+        
     - name: Run Jest Tests (Unit Tests)
       run: yarn test
 
