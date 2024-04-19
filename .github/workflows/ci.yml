@@ -68,6 +68,7 @@ jobs:
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          clean: true
           folder: build
 
       - run: |
