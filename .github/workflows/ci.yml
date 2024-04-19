@@ -34,7 +34,7 @@ jobs:
     - name: Upload build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: build-folder
+        name: build-artifacts
         path: build
 
     - shell: bash
@@ -55,7 +55,7 @@ jobs:
       - name: Download Build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-folder
+          name: build-artifacts
 
       - run: |
           pwd
@@ -64,7 +64,7 @@ jobs:
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .  # Deploy files from the root directory
+          folder: build-artifacts
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
