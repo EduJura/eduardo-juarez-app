@@ -63,7 +63,7 @@ jobs:
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: ~/home/runner/work/my-react-app-with-ts/my-react-app-with-ts
 
   # Assuming you don't need a separate build step before testing (modify if needed)
   test:
