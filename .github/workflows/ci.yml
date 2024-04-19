@@ -41,6 +41,8 @@ jobs:
       run: |
         pwd
         ls -la
+        echo "Listing Built Artifacts"
+        ls -la build
 
   deploy:
     name: Deploy to GitHub Pages
@@ -58,7 +60,7 @@ jobs:
       - shell: bash
         run: |
           pwd
-          ls -la /home/runner/work/my-react-app-with-ts/my-react-app-with-ts
+          ls -la
           
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
