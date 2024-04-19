@@ -1,4 +1,5 @@
 {
+  "homepage": "https://edujura.github.io/my-react-app-with-ts/",
   "name": "my-react-app-with-ts",
   "version": "0.1.0",
   "private": true,
@@ -28,11 +29,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "pre-ci": "rm -rf node_modules",
-    "ci": "yarn install --immutable --immutable-cache --check-cache"
+    "ci": "yarn install --immutable --immutable-cache --check-cache",
+    "test": "react-scripts test",
+    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts"
   },
   "jest": {
     "moduleNameMapper": {
