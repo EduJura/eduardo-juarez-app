@@ -11,7 +11,7 @@ describe("Task Component E2E Test", () => {
     console.log("Chrome: ", options);
     driver = await new Builder()
       .forBrowser(Browser.CHROME)
-      //.setChromeOptions(options.addArguments("--headless"))
+      .setChromeOptions(options.addArguments("--headless"))
       .build();
     await driver.get("https://edujura.github.io/my-react-app-with-ts/");
     
