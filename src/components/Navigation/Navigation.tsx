@@ -1,6 +1,6 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import "./Navigation.scss";
-import { getBaseURL } from "../../utils";
+//import { getBaseURL } from "../../utils";
 
 function Navigation(): JSX.Element { 
   return (
@@ -15,10 +15,10 @@ function Navigation(): JSX.Element {
 }
 
 function CustomLink({children, ...props }): JSX.Element {
-  const baseURL = getBaseURL();
+  //const baseURL = getBaseURL();
   const resolvedPath = useResolvedPath(props.url);  
   const isActive = useMatch({path: resolvedPath.pathname, end: true});
-  const url = baseURL === "/" ? props.url : baseURL + props.url;
+  const url = props.url; //baseURL === "/" ? props.url : baseURL + props.url;
   return (
     <li className={isActive ? "navigation--active" : ""}>
       <Link to={url}>{children}</Link>

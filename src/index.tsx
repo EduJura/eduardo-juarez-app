@@ -8,7 +8,8 @@ import 'bootswatch/dist/lumen/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter
+      basename='/my-react-app-with-ts'>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
