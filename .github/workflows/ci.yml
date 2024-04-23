@@ -1,4 +1,4 @@
-name: Continous Integration
+name: CI/CD
 
 on:
   push:
@@ -125,13 +125,11 @@ jobs:
           yarn  pre-ci
           yarn ci
 
-      - name: Install Chrome and ChromeDriver
+      - name: Install ChromeDriver
         run: |        
           # Install ChromeDriver
           CHROME_VERSION=$(google-chrome --version)
           CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
-          # echo "CHROME_VERSION: $CHROME_VERSION"
-          # echo "CHROME_DRIVER_VERSION $CHROME_DRIVER_VERSION"
           
           wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip -d /usr/local/bin
