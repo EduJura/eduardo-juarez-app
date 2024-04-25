@@ -1,5 +1,5 @@
 .navigation {
-  &--active {
-    background-color: var(--light-gray, #d6d6d6);
+  &--active a {
+    color: var(--light-gray, #d6d6d6);
   }
 }
