@@ -1,20 +1,22 @@
 import { Route, Routes } from "react-router-dom";
-import { Navigation } from "./components";
-import { Home, AboutUs, ContactUs } from "./pages";
+import { Header, Footer } from "./components";
+import { Home, Skills, Projects, Contact } from "./pages";
 import { TaskList } from "./components";
-//import { getBaseURL } from "./utils";
 
 function App(): JSX.Element {
-  //const baseURL = getBaseURL();   
   return (
     <>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-      </Routes>
-      <TaskList />
+      <Header />
+      <div className='container mx-auto max-w-screen-lg'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/skills' element={<Skills />} />
+          <Route path='/projects' element={<Projects />} />
+          <Route path='/contact' element={<Contact />} />
+        </Routes>
+        <TaskList />
+      </div>
+      <Footer />
     </>
   );
 }
