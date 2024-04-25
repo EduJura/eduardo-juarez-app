@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
-import photoURL from "../assets/profile-image.jpg";
+import photoURL from "../assets/img/profile-image.jpg";
 
 function Home() {
   const el = useRef(null);
@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <>
-      <div className='flex flex-col items-center justify-center mt-10 md:flex-row'>
+      <div className='flex flex-col items-center justify-center my-32 md:flex-row'>
         <div className='basis-3/5 justify-center pr-7'>
           <h1 className='text-2xl text-gray-900 font-[500] sm:text-6xl'>
             Hello I'm{" "}
@@ -26,10 +26,12 @@ function Home() {
             <br></br>
             <span ref={el} />
           </h1>
-          <p className='text-2xl leading-8 text-gray-600 mt-3'>
+          <p className='text-2xl text-gray-600 mt-5'>
             I'm a Experienced <em>Enterprise Web Developer</em> with a strong
             background in web application development and a proven track record
-            of integrating applications with Restful APIs. Skilled in a wide
+            of integrating applications with Restful APIs.
+            <br/>
+            Skilled in a wide
             range of technologies including JavaScript, TypeScript, React, Vue,
             jQuery, Node.js, Stenciljs, Lit, HTML, CSS, and more. Adept at
             providing IT consulting services, development, leading teams, and
