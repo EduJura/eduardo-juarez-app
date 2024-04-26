@@ -20,7 +20,7 @@ import {
 } from "react-icons/si";
 
 function Skills() {
-  const skills = [
+  const skills: Array<any> = [
     {
       iconEl: <SiHtml5 />,
       name: "HTML",
@@ -93,7 +93,7 @@ function Skills() {
         My Skills
       </h1>
       <div className='grid grid-cols-4 gap-4 my-8'>
-        {skills.map((skill: any) => (
+        {skills.map((skill: any, index: number) => (
           <div
             className='
             text-center
@@ -107,7 +107,8 @@ function Skills() {
             hover:shadow-emerald-500
             hover:text-emerald-500
             duration-300
-            cursor-pointer'>
+            cursor-pointer'
+            key={index}>
             <div className='text-7xl flex items-center justify-center'>
               {skill.iconEl}
             </div>
