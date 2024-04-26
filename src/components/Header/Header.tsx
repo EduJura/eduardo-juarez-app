@@ -3,7 +3,7 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 
 function Header(): JSX.Element {
   return (
-    <header className='w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white flex-col md:flex-row p-[1%]'>
+    <header className='w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white flex-col md:flex-row py-[1%] px-7'>
       <div className='font-vives text-3xl'>JE</div>
       <div>
         <Navigation />

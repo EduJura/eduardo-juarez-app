@@ -6,7 +6,7 @@ function App(): JSX.Element {
   return (
     <>
       <Header />
-      <div className='container mx-auto max-w-screen-lg'>
+      <div className='container mx-auto max-w-screen-lg my-32'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/skills' element={<Skills />} />
