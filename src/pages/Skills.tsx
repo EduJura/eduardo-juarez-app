@@ -97,9 +97,8 @@ function Skills() {
           <div
             className='
             text-center
-            text-emerald-400
-            bg-white
-            dark:bg-slate-800
+            text-emerald-400            
+            dark:bg-slate-600
             rounded-lg shadow-md
             shadow-emerald-400
             p-4 mb-4
