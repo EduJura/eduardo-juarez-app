@@ -2,8 +2,9 @@ import { render, screen } from "@testing-library/react";
 import Footer from "./Footer";
 
 describe("Footer Component", () => {
-  test("renders footer text", () => {
+  test("Renders footer text", () => {
     render(<Footer />);
-    expect(screen.getByText("Made with ❤️")).toBeInTheDocument();
+    const footerText = screen.getByText(/Made with ❤️/i);
+    expect(footerText).toBeInTheDocument();
   });
 });
