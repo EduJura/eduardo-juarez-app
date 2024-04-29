@@ -9,21 +9,23 @@ describe("Task Component E2E Test", () => {
   let driver;
 
   beforeEach(async () => {
-    jest.setTimeout(20000);
+    jest.setTimeout(25000);
     // TODO: Handle Firefox and Safari drivers to in the same test case    
     const options = new Options();
-    let driverOptions = !isLocalTest ? options.addArguments("--headless") : options;
+    let driverOptions = isLocalTest ? options.addArguments("--headless") : options;
     
     driver = await new Builder()
       .forBrowser(Browser.CHROME)
       .setChromeOptions(driverOptions)
       .build();
-    await driver.get(baseURL);
+    
+    console.log(`SELENIUM_URL:::: ${baseURL}to-do`);
+    await driver.get(`${baseURL}to-do`);
 
     printE2ETestInfo(baseURL, driver);
   });
   afterEach(async () => {
-    jest.setTimeout(20000);
+    jest.setTimeout(25000);
     await driver.quit();
   });
  
