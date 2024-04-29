@@ -65,9 +65,10 @@ function Contact() {
         <form action='#' method='POST'>
           <div className='flex flex-col gap-2 mt-8'>
             <label htmlFor='firstName' className='text-white font-[500]'>
-              Name
+              First Name
             </label>
             <input
+              id='firstName'
               className='rounded h-12 p-2'
               name='firstName'
               placeholder='Type your name'
@@ -82,6 +83,7 @@ function Contact() {
               Last Name
             </label>
             <input
+              id='lastName'
               className='rounded h-12 p-2'
               name='lastName'
               placeholder='Type your last name'
@@ -96,6 +98,7 @@ function Contact() {
               Email
             </label>
             <input
+              id='email'
               className='rounded h-12 p-2'
               name='email'
               type='email'
@@ -111,6 +114,7 @@ function Contact() {
               Message
             </label>
             <textarea
+              id='message'
               className='rounded h-24 p-2'
               name='message'
               placeholder='Type your message'
@@ -121,7 +125,7 @@ function Contact() {
             />
           </div>
           <button
-            className='bg-emerald-500 text-white p-2 rounded-md mt-6'
+            className='bg-emerald-500 text-white p-2 rounded-md mt-6 cursor-pointer hover:scale-110 duration-300'
             onClick={(e) => {
               handleSubmit(e);
             }}>
