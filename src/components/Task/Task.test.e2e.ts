@@ -3,7 +3,7 @@ import { Options } from "selenium-webdriver/chrome";
 import {printE2ETestInfo} from "../../utils/";
 
 const baseURL = process.env.REACT_APP_SELENIUM_TEST_URL;
-const isLocalTest = baseURL?.includes("localhost");
+const isDevMode = process.env.DEV_MODE;
 
 describe("Task Component E2E Test", () => {
   let driver;
@@ -11,14 +11,16 @@ describe("Task Component E2E Test", () => {
   beforeEach(async () => {
     jest.setTimeout(25000);
     // TODO: Handle Firefox and Safari drivers to in the same test case    
-    const options = new Options();
-    let driverOptions = isLocalTest ? options.addArguments("--headless") : options;
+    const options = new Options();    
+    let driverOptions = isDevMode
+      ? options
+      : options.addArguments("--headless");
     
     driver = await new Builder()
       .forBrowser(Browser.CHROME)
       .setChromeOptions(driverOptions)
       .build();
-    
+    console.log("Options: ", options);
     console.log(`SELENIUM_URL:::: ${baseURL}to-do`);
     await driver.get(`${baseURL}to-do`);
 
