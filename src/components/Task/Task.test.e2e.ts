@@ -21,8 +21,8 @@ describe("Task Component E2E Test", () => {
       .setChromeOptions(driverOptions)
       .build();
     console.log("Options: ", options);
-    console.log(`SELENIUM_URL:::: ${baseURL}to-do`);
-    await driver.get(`${baseURL}to-do`);
+    console.log(`SELENIUM_URL:::: ${baseURL}/to-do`);
+    await driver.get(`${baseURL}/to-do`);
 
     printE2ETestInfo(baseURL, driver);
   });
