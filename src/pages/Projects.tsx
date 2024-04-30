@@ -2,16 +2,32 @@ import { useState, useEffect } from "react";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
+  const [showMessage, setShowMessage] = useState(""); 
 
   useEffect(() => {
     const projectsData = getProjects();
-    projectsData.then((data) => setProjects(data.projects));
-  }, []);
+    projectsData.then((data) => {
+      try { 
+        setProjects(data.projects);
+      } catch (error) {
+        console.error(error);
+        setShowMessage("No projects to be shown, please try again!");
+      }
+      
+    });
+  }, [showMessage]);
 
   async function getProjects(): Promise<any> {
-    const projectsURL = "./data/projects.json";
-    const response = await fetch(projectsURL);
-    return await response.json();
+    try {
+      const projectsURL = "./data/projects.json";
+      const response = await fetch(projectsURL);      
+      if (response?.ok) {
+        return await response.json();        
+      }
+      throw new Error("Error fetching projects data");
+    } catch (error) {
+        console.error(error);
+    }
   }
 
   return (
@@ -21,7 +37,11 @@ function Projects() {
       </h1>
       {/*-- TODO: Create  timeline component */}
       <div className='timeline mt-8'>
-        {projects.map((project: any, index: number) => (
+        <div
+          className='text-center text-4xl italic text-slate-600'>
+          {showMessage}
+        </div>
+        {projects?.map((project: any, index: number) => (
           <div key={index} className='timeline-item flex flex-row-2'>
             <div className='timeline-marker flex flex-col items-center'>
               <div className='timeline-marker-circle flex flex-col items-center justify-center rounded-full bg-slate-600 w-6 h-6 flex-shrink-0'>
