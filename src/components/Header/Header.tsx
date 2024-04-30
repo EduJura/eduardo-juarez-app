@@ -4,14 +4,14 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 
 function Header(): JSX.Element {
   return (
-    <header className='w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white flex-col md:flex-row py-[1%] px-7'>
-      <Link className='font-vives text-3xl' to='/'>
+    <header className='w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white py-[1%] px-7 flex-col md:flex-row'>
+      <Link className='font-vives text-3xl my-4 md:my-0' to='/'>
         JE
       </Link>
-      <div>
+      <div className='my-4 md:my-0'>
         <Navigation />
       </div>
-      <div className='hover:scale-110 duration-300 cursor-pointer'>
+      <div className='hover:scale-110 duration-300 cursor-pointer my-4 md:my-0'>
         <a
           href='./files/resume.pdf'
           download='eduardo-juarez-full-developer-resume'

@@ -89,10 +89,10 @@ function Skills() {
 
   return (
     <>
-      <h1 className='text-2xl text-gray-900 font-[500] sm:text-6xl'>
+      <h1 className='text-3xl text-gray-900 font-[500] sm:text-6xl'>
         My Skills
       </h1>
-      <div className='grid grid-cols-4 gap-4 my-8'>
+      <div className='grid grid-cols-2 gap-4 mt-8 md:grid-cols-4'>
         {skills.map((skill: any, index: number) => (
           <div
             className='

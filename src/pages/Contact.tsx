@@ -53,15 +53,15 @@ function Contact() {
 
   return (
     <>
-      <h1 className='text-2xl text-gray-900 font-[500] sm:text-6xl'>
+      <h1 className='text-3xl text-gray-900 font-[500] sm:text-6xl'>
         Contact me!
       </h1>
-      <p className='text-lg text-gray-600 mt-8'>
+      <p className='text-xl text-gray-600 mt-8 md:text-lg'>
         Submit the form below to get touch in with me.
       </p>
       <div
         className='dark:bg-slate-600 rounded-lg shadow-md
-            shadow-emerald-400 md:w-[50%] my-8 m-auto p-8'>
+            shadow-emerald-400 md:w-[50%] mt-8 m-auto p-8'>
         <form action='#' method='POST'>
           <div className='flex flex-col gap-2 mt-8'>
             <label htmlFor='firstName' className='text-white font-[500]'>
