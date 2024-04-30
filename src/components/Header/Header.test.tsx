@@ -1,10 +1,12 @@
 import Header from "./Header";
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react"
+import { BrowserRouter } from "react-router-dom";
 
-describe("Footer Component", () => {
-  test("Renders footer text", () => {
-    render(<Header />);
-    const headerText = screen.getByText(/JE/i);
+describe("Header Component", () => {
+  test("Renders header text", () => {
+    render(<Header />, {wrapper: BrowserRouter});
+    
+    const headerText = screen.getByText(/Resume/i);
     expect(headerText).toBeInTheDocument();
   });
 });
