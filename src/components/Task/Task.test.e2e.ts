@@ -21,12 +21,12 @@ describe("Task Component E2E Test", () => {
     driver = await new Builder().forBrowser(Browser.CHROME)
       .setChromeOptions(driverOptions)
       .build();
-
+    
     console.log("Options: ", options);
-    console.log(`SELENIUM_URL:::: ${baseURL}/to-do`);
+    console.log(`SELENIUM_URL:::: ${baseURL}#/to-do`);
 
-    await driver.get(`${baseURL}/to-do`);
-
+    await driver.get(`${baseURL}`);
+    await driver.navigate().to(`${baseURL}#/to-do`);
     printE2ETestInfo(baseURL, driver);
   });
   afterEach(async () => {
