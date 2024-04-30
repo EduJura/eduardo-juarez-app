@@ -6,7 +6,7 @@ const baseURL = process.env.REACT_APP_SELENIUM_TEST_URL;
 const isDevMode = process.env.DEV_MODE;
 
 describe("Task Component E2E Test", () => {
-  let driver = new Builder();
+  let driver: any;
 
   jest.setTimeout(20000);
   jest.retryTimes(3);
@@ -18,7 +18,7 @@ describe("Task Component E2E Test", () => {
       ? options
       : options.addArguments("--headless");
 
-    driver = await driver.forBrowser(Browser.CHROME)
+    driver = await new Builder().forBrowser(Browser.CHROME)
       .setChromeOptions(driverOptions)
       .build();
 
