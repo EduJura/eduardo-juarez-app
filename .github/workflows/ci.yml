@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 permissions:
   contents: write
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x] 
+        node-version: [18.x]
     steps:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
@@ -23,12 +23,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node-version}}
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install Dependencies
-        run: | 
+        run: |
           yarn  pre-ci
-          yarn ci    
+          yarn ci
 
       - name: Build React App 🔧 # Create production build
         run: yarn build
@@ -44,15 +44,15 @@ jobs:
           ls -la
           echo "Listing Built Artifacts"
           ls -la build
-  # Perform Unit Testing        
+  # Perform Unit Testing
   unit-testing:
     name: Unit Testing
     concurrency: ci-${{ github.ref }}
-    needs: build  # This job depends on the successful completion of the 'build' job
+    needs: build # This job depends on the successful completion of the 'build' job
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x] 
+        node-version: [18.x]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -61,37 +61,37 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node-version}}
-          cache: 'yarn'
-      
+          cache: "yarn"
+
       - name: Install Dependencies
-        run: | 
+        run: |
           yarn  pre-ci
-          yarn ci      
+          yarn ci
 
       - name: Run Jest Tests (Unit Tests)
         run: yarn test
-  # Deploy application artifacts to GitHub Pages      
+  # Deploy application artifacts to GitHub Pages
   deploy:
     name: Deploy to GitHub Pages
     concurrency: ci-${{ github.ref }}
-    needs: ["build", "unit-testing"]  # This job depends on the successful completion of the 'build' and 'unit-testing' jobs
+    needs: ["build", "unit-testing"] # This job depends on the successful completion of the 'build' and 'unit-testing' jobs
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x] 
+        node-version: [18.x]
     steps:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
 
       - run: |
           mkdir build
-        
-      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.        
+
+      - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.
         uses: actions/download-artifact@v4
         with:
           path: build
-          name: build-artifacts                
-          
+          name: build-artifacts
+
       - name: Deploy Built Files 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -105,11 +105,11 @@ jobs:
   # Perform E2E Testing
   e2e-test:
     name: E2E Tests
-    needs: ["build", "deploy"]  # This job depends on the successful completion of the 'build' and 'deploy' jobs
+    needs: ["build", "deploy"] # This job depends on the successful completion of the 'build' and 'deploy' jobs
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]     
+        node-version: [18.x]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -118,19 +118,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{matrix.node-version}}
-          cache: 'yarn'
-      
+          cache: "yarn"
+
       - name: Install Dependencies
-        run: | 
+        run: |
           yarn  pre-ci
           yarn ci
 
       - name: Install ChromeDriver
-        run: |        
+        run: |
           # Install ChromeDriver
           CHROME_VERSION=$(google-chrome --version)
           CHROME_DRIVER_VERSION=$(echo "$CHROME_VERSION" | awk '{print $3}')
-          
+
           wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_DRIVER_VERSION/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip -d /usr/local/bin
           chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
@@ -144,7 +144,7 @@ jobs:
           ls -l /usr/bin/google-chrome
           echo "Chromedriver versions"
           chromedriver --version
-        if: runner.os == 'Linux'      
+        if: runner.os == 'Linux'
 
       - name: Run Selenium e2E Tests (if using Selenium)
         run: yarn prod:test:e2e
