@@ -1,19 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import 'bootswatch/dist/lumen/bootstrap.min.css';
+import "./index.css";
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
   <React.StrictMode>
-    <BrowserRouter
-      basename='/my-react-app-with-ts'>
+    {/* GitHub Pages does not allow server side routing so, <BrowserRouter> was replaced with <HashRouter> */}
+    {/* Replace to <BrowserRouter> of host server changes */}
+    <HashRouter>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+    </HashRouter>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

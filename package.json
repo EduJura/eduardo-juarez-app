@@ -1,30 +1,36 @@
 {
-  "homepage": "https://edujura.github.io/my-react-app-with-ts/",
+  "homepage": "https://edujura.github.io/my-react-app-with-ts",
+  "localDevPage": "http://localhost:3000/my-react-app-with-ts",
   "name": "my-react-app-with-ts",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "sass": "^1.51.0",
-    "sass-loader": "^12.6.0",
-    "ts-jest": "^29.1.2"
+    "sass": "^1.75.0",
+    "sass-loader": "^14.2.1"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.96",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
     "bootswatch": "^4.5.3",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "postcss": "^8.4.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.1.0",
     "react-router-dom": "^6.22.3",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^5.0.1",
     "selenium-webdriver": "^4.19.0",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "tailwindcss": "^3.4.3",
+    "typed.js": "^2.1.0",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,13 +42,8 @@
     "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test",
     "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts",
-    "local:test:e2e": "REACT_APP_SELENIUM_TEST_URL=http://localhost:3000/my-react-app-with-ts/ yarn test:e2e",
+    "local:test:e2e": "DEV_MODE=true REACT_APP_SELENIUM_TEST_URL=$npm_package_localDevPage yarn test:e2e --detectOpenHandles",
     "prod:test:e2e": "yarn test:e2e"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "node:events": "<rootDir>/node_modules/events/"
-    }
   },
   "eslintConfig": {
     "extends": [
