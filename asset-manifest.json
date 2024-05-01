@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/my-react-app-with-ts/static/css/main.e7e89958.css",
-    "main.js": "/my-react-app-with-ts/static/js/main.119132a1.js",
-    "static/js/453.daec2473.chunk.js": "/my-react-app-with-ts/static/js/453.daec2473.chunk.js",
-    "static/media/profile-image.jpg": "/my-react-app-with-ts/static/media/profile-image.4f8ff38eb0d42af949ff.jpg",
-    "index.html": "/my-react-app-with-ts/index.html",
-    "main.e7e89958.css.map": "/my-react-app-with-ts/static/css/main.e7e89958.css.map",
-    "main.119132a1.js.map": "/my-react-app-with-ts/static/js/main.119132a1.js.map",
-    "453.daec2473.chunk.js.map": "/my-react-app-with-ts/static/js/453.daec2473.chunk.js.map"
+    "main.css": "/eduardo-juarez-app/static/css/main.e7e89958.css",
+    "main.js": "/eduardo-juarez-app/static/js/main.227b55e1.js",
+    "static/js/453.bf85fbcf.chunk.js": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js",
+    "static/media/profile-image.jpg": "/eduardo-juarez-app/static/media/profile-image.4f8ff38eb0d42af949ff.jpg",
+    "index.html": "/eduardo-juarez-app/index.html",
+    "main.e7e89958.css.map": "/eduardo-juarez-app/static/css/main.e7e89958.css.map",
+    "main.227b55e1.js.map": "/eduardo-juarez-app/static/js/main.227b55e1.js.map",
+    "453.bf85fbcf.chunk.js.map": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e7e89958.css",
-    "static/js/main.119132a1.js"
+    "static/js/main.227b55e1.js"
   ]
 }
