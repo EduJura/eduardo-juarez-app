@@ -2,8 +2,8 @@ import { Builder, By, until, Browser } from "selenium-webdriver";
 import { Options } from "selenium-webdriver/chrome";
 import { printE2ETestInfo } from "../../utils/";
 
-const baseURL = process.env.REACT_APP_SELENIUM_TEST_URL;
-const isDevMode = process.env.DEV_MODE;
+const baseURL: string = process.env.REACT_APP_SELENIUM_TEST_URL || "";
+const isDevMode: string | undefined = process.env.DEV_MODE;
 
 describe("Task Component E2E Test", () => {
   let driver: any;
@@ -18,10 +18,11 @@ describe("Task Component E2E Test", () => {
       ? options
       : options.addArguments("--headless");
 
-    driver = await new Builder().forBrowser(Browser.CHROME)
+    driver = await new Builder()
+      .forBrowser(Browser.CHROME)
       .setChromeOptions(driverOptions)
       .build();
-    
+
     console.log("Options: ", options);
     console.log(`SELENIUM_URL:::: ${baseURL}#/to-do`);
 

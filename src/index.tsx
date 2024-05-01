@@ -10,6 +10,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    {/* GitHub Pages does not allow server side routing so, <BrowserRouter> was replaced with <HashRouter> */}
+    {/* Replace to <BrowserRouter> of host server changes */}
     <HashRouter>
       <App />
     </HashRouter>

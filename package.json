@@ -1,6 +1,6 @@
 {
-  "homepage": "https://edujura.github.io/my-react-app-with-ts/",
-  "localDevPage": "http://localhost:3000/my-react-app-with-ts/",
+  "homepage": "https://edujura.github.io/my-react-app-with-ts",
+  "localDevPage": "http://localhost:3000/my-react-app-with-ts",
   "name": "my-react-app-with-ts",
   "version": "0.1.0",
   "private": true,
