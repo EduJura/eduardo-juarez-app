@@ -1,32 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { getBaseURL } from "../utils";
 
 function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [showMessage, setShowMessage] = useState(""); 
+  const baseURL: string = getBaseURL();
+  const [projects, setProjects] = useState<any[]>([]);
+  const [showMessage, setShowMessage] = useState<string>("");
+  const getProjects = useCallback(getAllProjects, [baseURL]);
 
   useEffect(() => {
     const projectsData = getProjects();
     projectsData.then((data) => {
-      try { 
+      try {
+        setShowMessage("");
         setProjects(data.projects);
       } catch (error) {
         console.error(error);
         setShowMessage("No projects to be shown, please try again!");
       }
-      
     });
-  }, [showMessage]);
+  }, [getProjects]);
 
-  async function getProjects(): Promise<any> {
+  async function getAllProjects(): Promise<any> {
     try {
-      const projectsURL = "./data/projects.json";
-      const response = await fetch(projectsURL);      
+      const projectsURL = baseURL + "/data/projects.json";
+      const response = await fetch(projectsURL);
       if (response?.ok) {
-        return await response.json();        
+        return await response.json();
       }
       throw new Error("Error fetching projects data");
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   }
 
@@ -35,12 +38,16 @@ function Projects() {
       <h1 className='text-3xl text-gray-900 font-[500] sm:text-6xl'>
         Projects
       </h1>
-      {/*-- TODO: Create  timeline component */}
+      {/*-- TODO: Move timeline to a timeline component */}
       <div className='timeline mt-8'>
-        <div
-          className='text-center text-4xl italic text-slate-600'>
-          {showMessage}
-        </div>
+        {/*-- TODO: Move no data message to a component */}
+        {showMessage !== "" ? (
+          <div className='text-center text-4xl italic text-slate-600'>
+            {showMessage}
+          </div>
+        ) : (
+          ""
+        )}
         {projects?.map((project: any, index: number) => (
           <div key={index} className='timeline-item flex flex-row-2'>
             <div className='timeline-marker flex flex-col items-center'>
