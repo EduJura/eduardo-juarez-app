@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import Navigation from "../Navigation";
 import { IoCloudDownloadOutline } from "react-icons/io5";
+import "./Header.scss";
 
 function Header(): JSX.Element {
   return (
-    <header className='w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white py-[1%] px-7 flex-col md:flex-row'>
+    <header className='header w-full flex items-center justify-between bg-white dark:bg-slate-800 text-white py-[1%] px-7 flex-col md:flex-row'>
       <Link className='font-vives text-3xl my-4 md:my-0' to='/'>
         JE
       </Link>

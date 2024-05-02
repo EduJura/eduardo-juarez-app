@@ -8,6 +8,12 @@
 @tailwind utilities;
 @tailwind variants;
 
+:root {
+  --secondary-color: theme(colors.emerald.400);
+  --primary-color: theme(colors.slate.800);
+  --neutral-color: theme(colors.slate.600);
+}
+
 html, body {
   @apply font-roboto;
 }
