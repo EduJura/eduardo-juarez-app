@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/eduardo-juarez-app/static/css/main.71fe3427.css",
-    "main.js": "/eduardo-juarez-app/static/js/main.c38ba992.js",
+    "main.css": "/eduardo-juarez-app/static/css/main.b16f8bc7.css",
+    "main.js": "/eduardo-juarez-app/static/js/main.17306fcf.js",
     "static/js/453.bf85fbcf.chunk.js": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js",
     "static/media/profile-image.jpg": "/eduardo-juarez-app/static/media/profile-image.4f8ff38eb0d42af949ff.jpg",
     "index.html": "/eduardo-juarez-app/index.html",
-    "main.71fe3427.css.map": "/eduardo-juarez-app/static/css/main.71fe3427.css.map",
-    "main.c38ba992.js.map": "/eduardo-juarez-app/static/js/main.c38ba992.js.map",
+    "main.b16f8bc7.css.map": "/eduardo-juarez-app/static/css/main.b16f8bc7.css.map",
+    "main.17306fcf.js.map": "/eduardo-juarez-app/static/js/main.17306fcf.js.map",
     "453.bf85fbcf.chunk.js.map": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.71fe3427.css",
-    "static/js/main.c38ba992.js"
+    "static/css/main.b16f8bc7.css",
+    "static/js/main.17306fcf.js"
   ]
 }
