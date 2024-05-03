@@ -5,6 +5,22 @@ function Contact() {
   const feedbackMessages = {
     success: "Thank you for reaching out!",
     error: "All fields are required.",
+    serviceUnavaiable: () => (
+      <>
+        <p>
+          <b>Service Unavailable:</b>
+          <br />
+          Please try it latter or send me a direct message via{" "}
+          <a
+            className='font-[600] underline underline-offset-2'
+            href='https://www.linkedin.com/in/jorge-eduardo-ju%C3%A1rez-herrera-1769b7a4/'
+            target='_blank'
+            rel='noreferrer'>
+            LinkedIn
+          </a>
+        </p>
+      </>
+    ),
   };
   const initialState = {
     firstName: "",
@@ -27,10 +43,9 @@ function Contact() {
     }
 
     // TODO: Connect to third party Form API or create a custom service to handle contact me functionality
-    console.log(
-      `subject=Message from ${emailDetails.firstName}-${emailDetails.lastName} | ${emailDetails.email} &message=${emailDetails?.message}`
-    );
-    handleSuccess(feedbackMessages.success);
+    // handleSuccess(feedbackMessages.success);
+    // FIXME: Temporal Service Unavailable message, replace with handleSuccess above.
+    handleError(feedbackMessages.serviceUnavaiable());
   }
 
   function handleChange(
@@ -42,7 +57,7 @@ function Contact() {
     }));
   }
 
-  function handleError(message: string) {
+  function handleError(message: string | JSX.Element) {
     console.log(message);
     toast.error(message);
   }
