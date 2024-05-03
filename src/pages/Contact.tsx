@@ -43,7 +43,7 @@ function Contact() {
     }
 
     // TODO: Connect to third party Form API or create a custom service to handle contact me functionality
-    // handleSuccess(feedbackMessages.success);
+    handleSuccess(feedbackMessages.success);
     // FIXME: Temporal Service Unavailable message, replace with handleSuccess above.
     handleError(feedbackMessages.serviceUnavaiable());
   }
@@ -63,7 +63,8 @@ function Contact() {
   }
 
   function handleSuccess(message: string) {
-    toast.success(message);
+    console.log(message);
+    //toast.success(message);
   }
 
   return (
