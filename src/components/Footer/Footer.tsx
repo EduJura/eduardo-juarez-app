@@ -1,4 +1,4 @@
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 function Footer(): JSX.Element {
   return (
@@ -9,6 +9,9 @@ function Footer(): JSX.Element {
           target='_blank'
           rel='noreferrer'>
           <FaLinkedin className='text-3xl text-emerald-400 cursor-pointer hover:scale-110 duration-300' />
+        </a>
+        <a className="ml-2" href='https://github.com/EduJura' target='_blank' rel='noreferrer'>
+          <FaGithub className='text-3xl text-emerald-400 cursor-pointer hover:scale-110 duration-300' />
         </a>
       </div>
       <div className='md:mr-4'>Made with ❤️</div>
