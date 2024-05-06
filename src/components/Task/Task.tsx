@@ -19,9 +19,15 @@ function Task({ task, dispatch }): JSX.Element {
             });
           }}>
           {task.done ? (
-            <ImCheckboxChecked className='text-green-300 hover:scale-110 duration-300' />
+            <ImCheckboxChecked
+              className='text-green-300 hover:scale-110 duration-300'
+              aria-label='done'
+            />
           ) : (
-            <ImCheckboxUnchecked className='text-red-300 hover:scale-110 duration-300' />
+            <ImCheckboxUnchecked
+              className='text-red-300 hover:scale-110 duration-300'
+              aria-label='pending'
+            />
           )}
         </button>
         <button

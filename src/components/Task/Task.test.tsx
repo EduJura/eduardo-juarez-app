@@ -28,7 +28,7 @@ describe("Task component", () => {
     render(
       <Task task={{ ...task, done: true }} dispatch={dispatch} />
     );
-    const checkButton = screen.getByRole("button", { name: "✓" });
+    const checkButton = screen.getByRole("button", { name: "done" });
     expect(checkButton).toBeInTheDocument();
   });
 
