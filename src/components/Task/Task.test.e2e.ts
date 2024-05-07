@@ -51,7 +51,9 @@ describe("Task Component E2E Test", () => {
     await changeButton.click();
 
     // Ensure the task is added to the list
-    const taskElement = await driver.findElement(By.tagName("h2"));
+    const taskElement = await driver.findElement(
+      By.xpath(`//div[@data-testid='task-${task.id}']`)
+    );
     await driver.sleep(1200);
     expect(await taskElement.getText()).toContain(`${task.name} - ${task.id}`);
   });

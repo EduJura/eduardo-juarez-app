@@ -5,7 +5,9 @@ import "./Task.scss";
 function Task({ task, dispatch }): JSX.Element {
   return (
     <div className='task text-2xl flex flex-row justify-between my-4'>
-      <div className={`text-white ${task.done ? "task--done" : ""}`}>
+      <div
+        className={`text-white ${task.done ? "task--done" : ""}`}
+        data-testid={`task-${task.id}`}>
         {task.name} - {task.id}
       </div>
       <div className=''>
