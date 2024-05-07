@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/eduardo-juarez-app/static/css/main.5a701b5c.css",
-    "main.js": "/eduardo-juarez-app/static/js/main.e797bbac.js",
+    "main.js": "/eduardo-juarez-app/static/js/main.e9ab345a.js",
     "static/js/453.bf85fbcf.chunk.js": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js",
     "static/media/profile-image.jpg": "/eduardo-juarez-app/static/media/profile-image.4f8ff38eb0d42af949ff.jpg",
     "index.html": "/eduardo-juarez-app/index.html",
     "main.5a701b5c.css.map": "/eduardo-juarez-app/static/css/main.5a701b5c.css.map",
-    "main.e797bbac.js.map": "/eduardo-juarez-app/static/js/main.e797bbac.js.map",
+    "main.e9ab345a.js.map": "/eduardo-juarez-app/static/js/main.e9ab345a.js.map",
     "453.bf85fbcf.chunk.js.map": "/eduardo-juarez-app/static/js/453.bf85fbcf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5a701b5c.css",
-    "static/js/main.e797bbac.js"
+    "static/js/main.e9ab345a.js"
   ]
 }
