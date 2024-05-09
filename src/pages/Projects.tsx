@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import { getBaseURL } from "../utils";
 import { Timeline, FeedbackMessage } from "../components";
+import { httpRequest } from "../utils";
 
 function Projects() {
-  const baseURL: string = getBaseURL();
   const [projects, setProjects] = useState<any[]>([]);
   const [feedbackMessage, setFeedbackMessage] = useState<string>("");
-  const getProjects = useCallback(getAllProjects, [baseURL]);
+  const getProjects = useCallback(getAllProjects, []);
 
   useEffect(() => {
     const projectsData = getProjects();
@@ -23,10 +22,10 @@ function Projects() {
 
   async function getAllProjects(): Promise<any> {
     try {
-      const projectsURL = baseURL + "/data/projects.json";
-      const response = await fetch(projectsURL);
-      if (response?.ok) {
-        return await response.json();
+      const projectsURL = "/projects";
+      const response = await httpRequest.get(projectsURL);
+      if (response.status === 200) {
+        return await response.data;
       }
       throw new Error("Error fetching projects data");
     } catch (error) {
