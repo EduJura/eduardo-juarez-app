@@ -34,7 +34,7 @@ jobs:
         run: yarn build
 
       - name: Uploading Built Artifacts 🔺 # The project is then uploaded as an artifact named 'site'.
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: build
@@ -83,16 +83,42 @@ jobs:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
 
+      # env.ACT_LOCAL is set as environment variable to test the pipeleine locally with act nektos
+      - if: ${{ env.ACT_LOCAL }}
+        # Installing missing OS dependecies in the act docker image
+        name: Install OS Dependencies
+        run: |
+          echo "env.ACT_LOCAL pipeline testing: " ${{ env.ACT_LOCAL }}
+          echo "Updating apt-get before downloading dependencies..."
+          apt-get update
+          echo "Installing rsync..."
+          apt-get install -y rsync
+          echo "Installing git..."
+          apt-get install -y git
+          echo "Git Version: "
+          git --version
+
       - run: |
           mkdir build
 
       - name: Downloading Built artifacts 🔻 # The built project is downloaded into the 'site' folder.
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           path: build
           name: build-artifacts
 
-      - name: Deploy Built Files 🚀
+      - name: Deploy Built Files LOCALLY 🚀
+        # Run the deploy to gh-pages-local branch when testing the pipeline locally  
+        if: ${{ env.ACT_LOCAL }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          clean: true
+          folder: build
+          branch: gh-pages-local
+
+      - name: Deploy Built Files to PROD 🚀🚀🚀
+        # Run Deployment to production if env.ACT_LOCAL is undefined || false
+        if: ${{ !env.ACT_LOCAL }}
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           clean: true
