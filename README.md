@@ -1,7 +1,7 @@
 # Deployed Static Assest
 
 > [!IMPORTANT]
-> {{<REACT_APP_STATIC_README>}}
+> This branch contains all the deployed assets to Github Pages, which means this branch is created and update dynamically.
 
 > [!CAUTION]
 > Do not update or remove this branch.
