@@ -1,5 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 class HttpClient {
   private baseUrl: string;

@@ -43,7 +43,7 @@
     "pre-ci": "rm -rf node_modules",
     "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "react-scripts test",
-    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts",
+    "test:e2e": "react-scripts test --testMatch=**\\.test\\.e2e\\.ts --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "local:test:e2e": "DEV_MODE=true REACT_APP_SELENIUM_TEST_URL=$npm_package_localDevPage yarn test:e2e --detectOpenHandles",
     "prod:test:e2e": "yarn test:e2e",
     "test:act:ci-cd": "./scripts/act-ci-cd-pipeline-test.sh"
