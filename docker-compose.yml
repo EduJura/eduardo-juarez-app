@@ -1,4 +1,5 @@
-version: '3.7'
+version: '3.8'
+name: projects-api
 services:
   mongodb:
     image: mongo:latest
