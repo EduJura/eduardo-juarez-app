@@ -9,7 +9,7 @@ echo "Created temporal artifacts directory"
 # Note: Create a Github Personal Access Token and set it as the GITHUB_TOKEN environment variable.
 # The GITHUB_TOKEN (Personal Access Token) environment variable is required to authenticate with Github.
 echo "Executing workflow..."
-act --artifact-server-path tmp/artifacts -W .github/workflows/ci-cd.yml --env ACT_LOCAL=true -s GITHUB_TOKEN=$GITHUB_TOKEN
+act --artifact-server-path tmp/artifacts -W .github/workflows/ci-cd.yml --env ACT_LOCAL=true --secret-file .secrets
 # Cleanup the temporal directory
 echo "Cleaning up temporal artifacts directory..."
 rm -rf ./tmp

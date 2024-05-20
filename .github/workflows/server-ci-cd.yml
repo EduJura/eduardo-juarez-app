@@ -1,0 +1,52 @@
+name: Server  CI/CD
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+jobs:
+  build-and-push-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - if: ${{ env.ACT_LOCAL }}
+        name: Install OS Depenencies
+        run: |
+          apt update && apt upgrade -y
+          apt install -y docker.io
+          # apt-get update
+          # apt install docker-compose
+          # echo "Docker version" docker --version
+          # echo "Docker compose version" docker--compose --version      
+
+      - if: ${{ env.ACT_LOCAL }}
+        name: Upgrading Node
+        uses: actions/setup-node@v3
+        with:
+            node-version: '20'
+
+      - if: ${{ env.ACT_LOCAL }}
+        # Upgrade to node 20
+        name: Install `docker-compose` for local simulations
+        uses: KengoTODA/actions-setup-docker-compose@v1
+        with:
+          version: "2.14.2" # the full version of `docker-compose` command
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build Docker Images
+        run: docker-compose build
+
+      - name: Push Docker images
+        run: |
+          TAG=${{env.ACT_LOCAL && 'latest-dev' || 'latest'}}
+          docker tag my-react-app-backend-node ${{secrets.DOCKER_USERNAME}}/my-react-app-backend-node:$TAG
+          docker push ${{secrets.DOCKER_USERNAME}}/my-react-app-backend-node:$TAG
+
+  
