@@ -1,5 +1,6 @@
+# How can I build a github workflow action pipeline to build and deploy the images below to an amazon EC2 instance?
 version: '3.8'
-name: projects-api
+name: my-react-app-projects-api
 services:
   mongodb:
     image: mongo:latest
@@ -10,7 +11,7 @@ services:
       - mongodb_data:/data/db
 
   nodejs:
-    image: my-react-app-nodejs:latest
+    image: my-react-app-backend-node:latest
     build:
       context: .
       dockerfile: ./server/Dockerfile
