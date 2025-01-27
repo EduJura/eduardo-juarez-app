@@ -1,17 +1,26 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 const Project = require("../db/models/projectSchema");
 
-// GET /api/projects
+// Serve the root page
 router.get("/", async (req, res, next) => {
+  try {
+    console.info("Serving index.html");
+    res.sendFile(path.join(__dirname, "../public/index.html")); // Dynamically build the file path
+  } catch (error) {
+    next(error);
+  }
+});
+// GET /api/projects
+router.get("/projects", async (req, res, next) => {
   try {
     let projects = await Project.find();
     projects = {
-      "projects": projects
-        .map((project) => ({
-          ...project?._doc,
-          technologies: project.technologies.split(","),
-        }))
+      projects: projects.map((project) => ({
+        ...project?._doc,
+        technologies: project.technologies.split(","),
+      })),
     };
     
     res.json(projects);
